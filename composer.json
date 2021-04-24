@@ -1,0 +1,19 @@
+{
+    "name": "admin/ik-widget-plugin",
+    "description": "widget plugin",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Ihor Khaletskyi",
+            "email": "ihor.khaletskyi@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./Inc"
+        }
+    }
+}

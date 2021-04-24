@@ -1,0 +1,16 @@
+.widget.ik_widget_plugin{
+    padding: 20px;
+    display: block;
+    width: 380px;
+    height: auto;
+    background: lightseagreen;
+}
+.widget.ik_widget_plugin .widget-title{
+    text-align: center;
+}
+.widget.ik_widget_plugin  .user_list{
+    padding: 20px;
+}
+.respect-color-scheme-preference.is-dark-theme body .widget.ik_widget_plugin .user_list{
+    background-color: var(--global--color-background) !important;
+}
