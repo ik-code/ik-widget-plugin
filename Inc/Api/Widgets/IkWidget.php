@@ -123,7 +123,7 @@ class IkWidget extends WP_Widget {
             <label for="quantity_of_users">Display quantity of users:</label>
             <input type="number" class="widefat" id="<?php echo $titleID; ?>"
                    name="<?php echo esc_attr( $this->get_field_name( 'quantity_of_users' ) ); ?>"
-                   value="<?php echo esc_attr( $quantity_of_users ); ?>" min="0">
+                   value="<?php echo esc_attr( $quantity_of_users ); ?>" min="1">
         </p>
         <p>
             <label for="<?php echo $this->get_field_id( 'show_users_without_comments' ); ?>">Show Users Without Comments:</label>
