@@ -79,7 +79,13 @@ class IkWidget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 		}
-		$this->print_list_users( $instance['sort_by'], $instance['show_quantity_comments'], $instance['quantity_of_users'], $instance['show_users_without_comments'], $instance['select_by_user_role'] );
+		$this->print_list_users(
+		        $instance['sort_by'],
+                $instance['show_quantity_comments'],
+//                $instance['quantity_of_users'],
+                $instance['show_users_without_comments'],
+                $instance['select_by_user_role']
+        );
 
 		echo $args['after_widget'];
 	}
@@ -94,7 +100,7 @@ class IkWidget extends WP_Widget {
 		$title                       = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Custom text', 'ik-widget-plugin' );
 		$sort_by                     = ! empty( $instance['sort_by'] ) ? esc_attr( $instance['sort_by'] ) : '';
 		$show_quantity_comments      = ! empty( $instance['show_quantity_comments'] ) ? $instance['show_quantity_comments'] : '';
-		$quantity_of_users           = ! empty( $instance['quantity_of_users'] ) ? $instance['quantity_of_users'] : '';
+		//$quantity_of_users           = ! empty( $instance['quantity_of_users'] ) ? $instance['quantity_of_users'] : '';
 		$show_users_without_comments = ! empty( $instance['show_users_without_comments'] ) ? $instance['show_users_without_comments'] : '';
 		$select_by_user_role         = ! empty( $instance['select_by_user_role'] ) ? $instance['select_by_user_role'] : '';
 
@@ -119,12 +125,12 @@ class IkWidget extends WP_Widget {
             <input class="сheckbox" type="checkbox" id="<?php echo $this->get_field_id( 'show_quantity_comments' ); ?>"
                    name="<?php echo $this->get_field_name( 'show_quantity_comments' ); ?>" <?php checked( $show_quantity_comments, 'on' ); ?> >
         </p>
-        <p>
-            <label for="quantity_of_users">Display quantity of users:</label>
-            <input type="number" class="widefat" id="<?php echo $titleID; ?>"
-                   name="<?php echo esc_attr( $this->get_field_name( 'quantity_of_users' ) ); ?>"
-                   value="<?php echo esc_attr( $quantity_of_users ); ?>" min="1">
-        </p>
+<!--        <p>-->
+<!--            <label for="quantity_of_users">Display quantity of users:</label>-->
+<!--            <input type="number" class="widefat" id="--><?php //echo $titleID; ?><!--"-->
+<!--                   name="--><?php //echo esc_attr( $this->get_field_name( 'quantity_of_users' ) ); ?><!--"-->
+<!--                   value="--><?php //echo esc_attr( $quantity_of_users ); ?><!--" min="1">-->
+<!--        </p>-->
         <p>
             <label for="<?php echo $this->get_field_id( 'show_users_without_comments' ); ?>">Show Users Without Comments:</label>
             <input class="сheckbox" type="checkbox"
@@ -161,7 +167,7 @@ class IkWidget extends WP_Widget {
 		$instance['title']                       = sanitize_text_field( $new_instance['title'] );
 		$instance['sort_by']                     = esc_sql( $new_instance['sort_by'] );
 		$instance['show_quantity_comments']      = $new_instance['show_quantity_comments'];
-		$instance['quantity_of_users']           = $new_instance['quantity_of_users'];
+		//$instance['quantity_of_users']           = $new_instance['quantity_of_users'];
 		$instance['show_users_without_comments'] = $new_instance['show_users_without_comments'];
 		$instance['select_by_user_role']         = esc_sql( $new_instance['select_by_user_role'] );
 
@@ -177,11 +183,16 @@ class IkWidget extends WP_Widget {
 	 * @param $show_users_without_comments
 	 * @param $select_by_user_role
 	 */
-	public function print_list_users( $sort_by, $show_quantity_comments, $quantity_of_users, $show_users_without_comments, $select_by_user_role ) {
+	public function print_list_users(
+	        $sort_by,
+            $show_quantity_comments,
+            //$quantity_of_users,
+            $show_users_without_comments,
+            $select_by_user_role ) {
 
 		$users = get_users( array(
 			'orderby'  => 'user_registered',
-			'number'   => $quantity_of_users,
+			//'number'   => $quantity_of_users,
 			'role__in' => $select_by_user_role
 		) );
 
@@ -196,9 +207,11 @@ class IkWidget extends WP_Widget {
 
 		if ( $sort_by === 'ASC' ) {
 			asort( $array_users );
+			$array_users = array_slice($array_users, 0,10);
 		}
 		if ( $sort_by === 'DESC' ) {
 			arsort( $array_users );
+			$array_users = array_slice($array_users, 0,10);
 		}
 
 		echo '<style>.user_list{background-color: #' . get_theme_mod( 'background_color', 'D1E4DD' ) . '; }</style><ul class="user_list">';
